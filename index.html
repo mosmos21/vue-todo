@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Vue-TODO</title>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="row mt-5">
+            <h1 class="mx-auto center-block">Vue-TODO</h1>
+        </div>
+        <div class="row mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Content</td>
+                        <td>Status</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in todos" v-bind:keys="item.id">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.comment }}</td>
+                        <td>
+                            <button class="btn btn-primary">{{ item.state }}</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row mt-5">
+            <div class="mx-auto col-md-8">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="new todo...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
