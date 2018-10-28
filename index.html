@@ -47,27 +47,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Content</td>
-                        <td>Status</td>
-                        <td></td>
+                        <td scope="col">ID</td>
+                        <td scope="col">Content</td>
+                        <td scope="col">Status</td>
+                        <td scope="col"></td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in selectedTodo" v-bind:keys="item.id">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.comment }}</td>
-                        <td>
-                            <button class="btn btn-primary" v-on:click="doChangeState(item)">
-                                {{ item.state | stateText }}
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-outline-danger" v-on:click.ctrl="doRemove(item)">
-                                削除
-                            </button>
-                        </td>
-                    </tr>
+                    <tr is="todo-row" v-for="(item, index) in selectedTodo" :keys="index" :item="item"
+                        v-on:change-state="changeState(item)" v-on:remove-item="removeItem(index)" />
                 </tbody>
             </table>
         </div>

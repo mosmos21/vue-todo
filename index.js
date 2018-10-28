@@ -16,13 +16,44 @@ var todoStorage = {
   }
 };
 
+Vue.component('todo-row', {
+  props: ['item', 'index'],
+  template: `
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.comment }}</td>
+      <td>
+        <button class="btn btn-primary" v-on:click="doChangeState(item)">
+          {{ item.state | stateText }}
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-outline-danger" v-on:click="doRemove(index)">
+          削除
+        </button>
+      </td>
+    </tr>
+  `,
+  methods: {
+    doChangeState: function (item) {
+      this.$emit('change-state', item);
+    },
+    doRemove: function (index) {
+      this.$emit('remove-item', index);
+    }
+  },
+  filters: {
+    stateText: function (val) {
+      return ['作業中！', '完了!'][val];
+    }
+  }
+})
+
 var vm = new Vue({
   el: '#app',
   data: {
     type: -1,
-    todos: [
-      { id: 1, comment: "TODOを作る", state: 0 }
-    ]
+    todos: []
   },
   watch: {
     todos: {
@@ -48,17 +79,11 @@ var vm = new Vue({
       });
       comment.value = '';
     },
-    doChangeState: function (item) {
+    changeState: function (item) {
       item.state = item.state ? 0 : 1
     },
-    doRemove: function (item) {
-      var index = this.todos.indexOf(item);
+    removeItem: function (index) {
       this.todos.splice(index, 1);
-    }
-  },
-  filters: {
-    stateText: function (val) {
-      return { 0: '作業中！', 1: '完了!' }[val];
     }
   },
   computed: {
@@ -71,7 +96,7 @@ var vm = new Vue({
         });
     }
   },
-  created() {
+  created: function () {
     this.todos = todoStorage.fetch()
   }
 });
