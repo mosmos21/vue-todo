@@ -52,6 +52,7 @@ Vue.component('todo-row', {
 var vm = new Vue({
   el: '#app',
   data: {
+    title: 'Vue Todo',
     type: -1,
     todos: []
   },
